@@ -23,7 +23,6 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export const insertDemoSchema = createInsertSchema(demos).pick({
   prompt: true,
-  url: true,
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;

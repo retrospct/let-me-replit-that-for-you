@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
-  Code,
+  Dumbbell,
   Eye,
   WandSparkles,
   Copy,
   Share,
   Bot,
-  Database,
-  Bug,
+  Timer,
+  Loader,
   MousePointer,
   Keyboard,
 } from "lucide-react";
@@ -74,21 +74,24 @@ export default function Home() {
 
   const examples = [
     {
-      title: "React Component",
-      prompt: "How do I create a React component with state?",
-      icon: Code,
+      title: "Gym Buddy Finder",
+      prompt:
+        "Make a web app that helps gym-goers find new friends to train with. Create profiles with fitness goals and preferences, match users based on location and workout types, and include a messaging system. Design it with vibrant colors and an engaging social interface.",
+      icon: Dumbbell,
       color: "text-blue-400",
     },
     {
-      title: "API Integration",
-      prompt: "How do I fetch data from an API in Python?",
-      icon: Database,
+      title: "Meditation Timer",
+      prompt:
+        "Make a peaceful meditation app with customizable ambient sounds, interval bells, and session tracking. Include guided breathing animations and a serene, minimalist design.",
+      icon: Timer,
       color: "text-purple-400",
     },
     {
-      title: "Debug Error",
-      prompt: "Why am I getting 'undefined is not a function'?",
-      icon: Bug,
+      title: "Waitlist Website",
+      prompt:
+        "Make a waitlist site for my startup that collects emails and full names from users. Include some basic information about my startup and make the design modern and professional. Use a postgres database to store the registrations. Design it with a beautiful hero section and elegant glass-like elements.",
+      icon: Loader,
       color: "text-green-400",
     },
   ];
@@ -168,7 +171,7 @@ export default function Home() {
                   <Input
                     id="prompt-input"
                     data-testid="input-prompt"
-                    placeholder="e.g., How do I create a React component with state?"
+                    placeholder="Create an app that notifies the office when lunch is ready..."
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     className="text-lg py-4 pr-12"
@@ -348,7 +351,8 @@ export default function Home() {
 
               <DemoAnimation
                 prompt={
-                  prompt || "How do I create a React component with state?"
+                  prompt ||
+                  "Create an app that notifies the office when lunch is ready"
                 }
               />
             </CardContent>
@@ -382,24 +386,24 @@ export default function Home() {
                   onClick={() => setPrompt(example.prompt)}
                   data-testid={`example-${index}`}
                 >
-                  <div className="flex items-start space-x-3">
-                    <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
-                      style={{ backgroundColor: `${example.color}20` }}
-                    >
-                      <Icon className={example.color} size={20} />
-                    </div>
-                    <div>
+                  <div className="flex flex-col items-start space-x-3">
+                    <div className="flex items-center space-x-3">
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
+                        style={{ backgroundColor: `${example.color}20` }}
+                      >
+                        <Icon className={example.color} size={20} />
+                      </div>
                       <h4 className="font-semibold mb-2 group-hover:text-orange-400 transition-colors">
                         {example.title}
                       </h4>
-                      <p
-                        className="text-sm"
-                        style={{ color: "var(--replit-gray)" }}
-                      >
-                        "{example.prompt}"
-                      </p>
                     </div>
+                    <p
+                      className="text-sm"
+                      style={{ color: "var(--replit-gray)" }}
+                    >
+                      "{example.prompt}"
+                    </p>
                   </div>
                 </motion.div>
               );

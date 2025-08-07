@@ -5,7 +5,7 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  createDemo(demo: InsertDemo): Promise<Demo>;
+  createDemo(demo: InsertDemo & { url: string }): Promise<Demo>;
   getDemo(id: string): Promise<Demo | undefined>;
 }
 
@@ -35,7 +35,7 @@ export class MemStorage implements IStorage {
     return user;
   }
 
-  async createDemo(insertDemo: InsertDemo): Promise<Demo> {
+  async createDemo(insertDemo: InsertDemo & { url: string }): Promise<Demo> {
     const id = randomUUID();
     const demo: Demo = { 
       ...insertDemo, 
