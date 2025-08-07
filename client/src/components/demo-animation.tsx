@@ -7,7 +7,7 @@ interface DemoAnimationProps {
   autoPlay?: boolean;
 }
 
-export default function DemoAnimation({ prompt, autoPlay = false }: DemoAnimationProps) {
+export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimationProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [typedText, setTypedText] = useState("");
@@ -25,9 +25,11 @@ export default function DemoAnimation({ prompt, autoPlay = false }: DemoAnimatio
         if (currentStep < steps.length - 1) {
           setCurrentStep(prev => prev + 1);
         } else {
-          setIsPlaying(false);
+          // Loop back to start
+          setCurrentStep(0);
+          setTypedText("");
         }
-      }, currentStep === 2 ? 3000 : 1500); // Longer delay for typing step
+      }, currentStep === 2 ? 3000 : currentStep === 3 ? 2000 : 1500); // Longer delay for typing step and pause before restart
 
       return () => clearTimeout(timer);
     }
@@ -58,7 +60,7 @@ export default function DemoAnimation({ prompt, autoPlay = false }: DemoAnimatio
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border" style={{ borderColor: "hsl(210 5.2632% 14.9020%)" }}>
+    <div className="rounded-lg overflow-hidden border" style={{ borderColor: "var(--replit-border)" }}>
       {/* Mock Browser Window */}
       <div className="bg-gray-700 px-4 py-3 flex items-center space-x-2">
         <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -67,17 +69,7 @@ export default function DemoAnimation({ prompt, autoPlay = false }: DemoAnimatio
         <div className="bg-gray-600 text-gray-300 px-3 py-1 rounded text-sm ml-4 font-mono">
           replit.com
         </div>
-        {!isPlaying && (
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={resetAnimation}
-            className="ml-auto"
-            data-testid="button-replay"
-          >
-            Replay Demo
-          </Button>
-        )}
+
       </div>
 
       {/* Simulated Replit Interface */}

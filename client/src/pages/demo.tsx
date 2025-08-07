@@ -30,7 +30,7 @@ export default function Demo() {
 
   if (!prompt) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: "var(--replit-dark)" }}>
+      <div className="min-h-screen" style={{ backgroundColor: "var(--replit-light-bg)" }}>
         <Header />
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl font-bold mb-4" style={{ color: "var(--replit-orange)" }}>
@@ -53,7 +53,7 @@ export default function Demo() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--replit-dark)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--replit-light-bg)" }}>
       <Header />
       
       <main className="container mx-auto px-4 py-12">
@@ -73,7 +73,7 @@ export default function Demo() {
             className="max-w-3xl mx-auto p-6 rounded-xl border font-mono text-lg"
             style={{ 
               backgroundColor: "var(--replit-card)", 
-              borderColor: "hsl(210 5.2632% 14.9020%)",
+              borderColor: "var(--replit-border)",
               color: "var(--replit-orange)"
             }}
             data-testid="text-demo-prompt"

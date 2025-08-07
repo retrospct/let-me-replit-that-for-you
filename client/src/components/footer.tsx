@@ -5,8 +5,8 @@ export default function Footer() {
     <footer 
       className="border-t backdrop-blur-sm mt-20"
       style={{ 
-        borderColor: "var(--replit-card)",
-        backgroundColor: "hsl(213, 49%, 10%, 0.8)"
+        borderColor: "var(--replit-border)",
+        backgroundColor: "hsl(0, 0%, 98%, 0.9)"
       }}
     >
       <div className="container mx-auto px-4 py-8">
@@ -53,7 +53,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div className="text-center mt-6 pt-6 border-t" style={{ borderColor: "hsl(210 5.2632% 14.9020%)" }}>
+        <div className="text-center mt-6 pt-6 border-t" style={{ borderColor: "var(--replit-border)" }}>
           <p className="text-xs" style={{ color: "var(--replit-gray)" }}>
             Not affiliated with Replit. This is a parody site inspired by LMGTFY.
           </p>

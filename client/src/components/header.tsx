@@ -6,8 +6,8 @@ export default function Header() {
     <header 
       className="border-b backdrop-blur-sm sticky top-0 z-50"
       style={{ 
-        borderColor: "var(--replit-card)",
-        backgroundColor: "hsl(213, 49%, 10%, 0.8)"
+        borderColor: "var(--replit-border)",
+        backgroundColor: "hsl(0, 0%, 98%, 0.9)"
       }}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -18,7 +18,7 @@ export default function Header() {
           >
             <Code className="text-white" size={16} />
           </div>
-          <h1 className="text-xl font-semibold">Let Me Replit That For You</h1>
+          <h1 className="text-xl font-semibold text-foreground">Let Me Replit That For You</h1>
         </div>
         <div className="hidden md:flex items-center space-x-6">
           <a 

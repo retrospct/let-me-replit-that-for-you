@@ -10,7 +10,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { prompt } = insertDemoSchema.parse(req.body);
       
-      // Generate URL with prompt as query parameter
+      // Generate URL that redirects to Replit with prompt
       const encodedPrompt = encodeURIComponent(prompt);
       const baseUrl = req.get('host') || 'localhost:5000';
       const protocol = req.get('x-forwarded-proto') || 'http';
