@@ -174,6 +174,11 @@ export default function Home() {
                     placeholder="Create an app that notifies the office when lunch is ready..."
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !generateDemo.isPending) {
+                        handleGenerate();
+                      }
+                    }}
                     className="text-lg py-4 pr-12"
                     style={{
                       backgroundColor: "var(--input)",
