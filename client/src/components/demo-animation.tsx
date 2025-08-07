@@ -206,8 +206,8 @@ export default function DemoAnimation({
                 opacity: 1 
               }}
               animate={{
-                x: 200,
-                y: 160,
+                x: 40,
+                y: 145,
                 opacity: 1,
               }}
               exit={{ opacity: 0 }}
