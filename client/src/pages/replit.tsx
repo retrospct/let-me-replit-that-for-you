@@ -36,10 +36,7 @@ export default function Replit() {
       >
         <Header />
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1
-            className="text-4xl font-bold mb-4"
-            style={{ color: "var(--replit-orange)" }}
-          >
+          <h1 className="text-4xl font-bold mb-4 text-foreground">
             Invalid Let Me Replit That For You Link
           </h1>
           <p className="text-xl mb-8" style={{ color: "var(--replit-gray)" }}>
@@ -72,23 +69,9 @@ export default function Replit() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 replit-gradient">
-            Let Me Show You How
-          </h1>
-          <p className="text-xl mb-4" style={{ color: "var(--replit-gray)" }}>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
             Here's how you can ask Replit's AI Agent:
-          </p>
-          <div
-            className="max-w-3xl mx-auto p-6 rounded-xl border font-mono text-lg"
-            style={{
-              backgroundColor: "var(--replit-card)",
-              borderColor: "var(--replit-border)",
-              color: "var(--replit-orange)",
-            }}
-            data-testid="text-demo-prompt"
-          >
-            "{prompt}"
-          </div>
+          </h1>
         </motion.div>
 
         {showAnimation && (

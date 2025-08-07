@@ -16,7 +16,6 @@ export default function DemoAnimation({
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [typedText, setTypedText] = useState("");
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   const steps = [
     "Opening Replit...",
@@ -28,34 +27,30 @@ export default function DemoAnimation({
   useEffect(() => {
     if (isPlaying) {
       let delay = 1500; // Default delay
-      
+
       if (currentStep === 2) {
         // For typing step, wait for typing to complete plus extra time
-        const typingTime = prompt.length * 80; // 80ms per character
+        const typingTime = prompt.length * 25; // 80ms per character
         delay = typingTime + 2000; // Extra 2 seconds after typing completes
       } else if (currentStep === 3) {
         // Stay on final step longer before looping
         delay = shouldLoop ? 3000 : 0; // 3 seconds if looping, immediate if not
       }
 
-      const timer = setTimeout(
-        () => {
-          if (currentStep < steps.length - 1) {
-            setCurrentStep((prev) => prev + 1);
-          } else if (currentStep === steps.length - 1) {
-            if (shouldLoop) {
-              // Loop back to start if shouldLoop is true
-              setCurrentStep(0);
-              setTypedText("");
-              setIsTypingComplete(false);
-            } else {
-              // Stop at final step if shouldLoop is false
-              setIsPlaying(false);
-            }
+      const timer = setTimeout(() => {
+        if (currentStep < steps.length - 1) {
+          setCurrentStep((prev) => prev + 1);
+        } else if (currentStep === steps.length - 1) {
+          if (shouldLoop) {
+            // Loop back to start if shouldLoop is true
+            setCurrentStep(0);
+            setTypedText("");
+          } else {
+            // Stop at final step if shouldLoop is false
+            setIsPlaying(false);
           }
-        },
-        delay
-      );
+        }
+      }, delay);
 
       return () => clearTimeout(timer);
     }
@@ -65,34 +60,29 @@ export default function DemoAnimation({
   useEffect(() => {
     if (currentStep === 2 && isPlaying && prompt) {
       setTypedText("");
-      setIsTypingComplete(false);
       let index = 0;
       const typeTimer = setInterval(() => {
         if (index < prompt.length) {
           setTypedText(prompt.slice(0, index + 1));
           index++;
         } else {
-          setIsTypingComplete(true);
           clearInterval(typeTimer);
         }
-      }, 80);
+      }, 25);
 
       return () => clearInterval(typeTimer);
     } else if (currentStep >= 2) {
       // Keep the full prompt visible for steps 2+ or when stopped
       setTypedText(prompt);
-      setIsTypingComplete(true);
     } else if (currentStep < 2) {
       // Clear text for earlier steps
       setTypedText("");
-      setIsTypingComplete(false);
     }
   }, [currentStep, isPlaying, prompt]);
 
   const resetAnimation = () => {
     setCurrentStep(0);
     setTypedText("");
-    setIsTypingComplete(false);
     setIsPlaying(true);
   };
 
@@ -129,50 +119,6 @@ export default function DemoAnimation({
           </div>
         </div>
 
-        {/* Animated Cursor */}
-        <AnimatePresence>
-          {isPlaying && currentStep === 1 && (
-            <motion.div
-              className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10"
-              initial={{ x: 50, y: 50, opacity: 0 }}
-              animate={{
-                x: window.innerWidth > 768 ? 420 : 220,
-                y: 105,
-                opacity: 1,
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-              data-testid="animated-cursor"
-            >
-              <svg className="w-6 h-6" fill="black" viewBox="0 0 24 24">
-                <path d="M3 3l18 9-8.5 2.5L10 22z" />
-              </svg>
-            </motion.div>
-          )}
-          {isPlaying && currentStep === 2 && (
-            <motion.div
-              className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10"
-              initial={{
-                x: window.innerWidth > 768 ? 420 : 220,
-                y: 105,
-                opacity: 1,
-              }}
-              animate={{
-                x: 40,
-                y: 145,
-                opacity: 1,
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              data-testid="animated-cursor-input"
-            >
-              <svg className="w-6 h-6" fill="black" viewBox="0 0 24 24">
-                <path d="M3 3l18 9-8.5 2.5L10 22z" />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Chat Input Area */}
         <motion.div
           className="bg-gray-100 rounded-lg p-4 border-2 border-dashed border-gray-300"
@@ -193,7 +139,7 @@ export default function DemoAnimation({
                   data-testid="text-typing-animation"
                 >
                   {typedText}
-                  {isPlaying && currentStep === 2 && (
+                  {isPlaying && (currentStep === 2 || currentStep === 3) && (
                     <span className="animate-ping">|</span>
                   )}
                 </motion.span>
@@ -254,6 +200,50 @@ export default function DemoAnimation({
             Send Chat
           </motion.div>
         </div>
+
+        {/* Animated Cursor */}
+        <AnimatePresence>
+          {isPlaying && currentStep === 1 && (
+            <motion.div
+              className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10"
+              initial={{ x: 50, y: 50, opacity: 0 }}
+              animate={{
+                x: window.innerWidth > 768 ? 420 : 220,
+                y: 105,
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+              data-testid="animated-cursor"
+            >
+              <svg className="w-6 h-6" fill="black" viewBox="0 0 24 24">
+                <path d="M3 3l18 9-8.5 2.5L10 22z" />
+              </svg>
+            </motion.div>
+          )}
+          {isPlaying && currentStep === 2 && (
+            <motion.div
+              className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10"
+              initial={{
+                x: window.innerWidth > 768 ? 420 : 220,
+                y: 105,
+                opacity: 1,
+              }}
+              animate={{
+                x: 40,
+                y: 145,
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              data-testid="animated-cursor-input"
+            >
+              <svg className="w-6 h-6" fill="black" viewBox="0 0 24 24">
+                <path d="M3 3l18 9-8.5 2.5L10 22z" />
+              </svg>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
