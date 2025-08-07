@@ -13,8 +13,8 @@ export default function Demo() {
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.split('?')[1] || '');
-    const queryPrompt = searchParams.get('q');
+    const searchParams = new URLSearchParams(location.split("?")[1] || "");
+    const queryPrompt = searchParams.get("q");
     if (queryPrompt) {
       setPrompt(decodeURIComponent(queryPrompt));
       // Start animation after a short delay
@@ -25,22 +25,28 @@ export default function Demo() {
   const handleRedirectToReplit = () => {
     const encodedPrompt = encodeURIComponent(prompt);
     const replitUrl = `https://replit.com/ai?q=${encodedPrompt}`;
-    window.open(replitUrl, '_blank');
+    window.open(replitUrl, "_blank");
   };
 
   if (!prompt) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: "var(--replit-light-bg)" }}>
+      <div
+        className="min-h-screen"
+        style={{ backgroundColor: "var(--replit-light-bg)" }}
+      >
         <Header />
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-4xl font-bold mb-4" style={{ color: "var(--replit-orange)" }}>
-            Invalid Demo Link
+          <h1
+            className="text-4xl font-bold mb-4"
+            style={{ color: "var(--replit-orange)" }}
+          >
+            Invalid Let Me Replit That For You Link
           </h1>
           <p className="text-xl mb-8" style={{ color: "var(--replit-gray)" }}>
-            This demonstration link appears to be missing a prompt.
+            This link appears to be missing a prompt.
           </p>
           <Button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = "/")}
             style={{ backgroundColor: "var(--replit-orange)" }}
             data-testid="button-home"
           >
@@ -53,11 +59,14 @@ export default function Demo() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--replit-light-bg)" }}>
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--replit-light-bg)" }}
+    >
       <Header />
-      
+
       <main className="container mx-auto px-4 py-12">
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -67,14 +76,14 @@ export default function Demo() {
             Let Me Show You How
           </h1>
           <p className="text-xl mb-4" style={{ color: "var(--replit-gray)" }}>
-            Here's how you can ask Replit's AI:
+            Here's how you can ask Replit's AI Agent:
           </p>
-          <div 
+          <div
             className="max-w-3xl mx-auto p-6 rounded-xl border font-mono text-lg"
-            style={{ 
-              backgroundColor: "var(--replit-card)", 
+            style={{
+              backgroundColor: "var(--replit-card)",
               borderColor: "var(--replit-border)",
-              color: "var(--replit-orange)"
+              color: "var(--replit-orange)",
             }}
             data-testid="text-demo-prompt"
           >
@@ -83,7 +92,7 @@ export default function Demo() {
         </motion.div>
 
         {showAnimation && (
-          <motion.div 
+          <motion.div
             className="max-w-6xl mx-auto mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,14 +102,17 @@ export default function Demo() {
           </motion.div>
         )}
 
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.5 }}
         >
-          <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--replit-orange)" }}>
-            Ready to try Replit's AI?
+          <h2
+            className="text-2xl font-bold mb-6"
+            style={{ color: "var(--replit-orange)" }}
+          >
+            Ask Replit's AI Agent Yourself
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -115,9 +127,12 @@ export default function Demo() {
             </Button>
             <Button
               variant="outline"
-              onClick={() => window.location.href = '/'}
+              onClick={() => (window.location.href = "/")}
               className="text-lg py-4 px-8"
-              style={{ borderColor: "var(--replit-blue)", color: "var(--replit-blue)" }}
+              style={{
+                borderColor: "var(--replit-blue)",
+                color: "var(--replit-blue)",
+              }}
               data-testid="button-create-own"
             >
               <Code className="mr-2" size={20} />

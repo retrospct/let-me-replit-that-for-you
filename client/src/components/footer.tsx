@@ -2,29 +2,31 @@ import { Code, Github, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer 
+    <footer
       className="border-t backdrop-blur-sm mt-20"
-      style={{ 
+      style={{
         borderColor: "var(--replit-border)",
-        backgroundColor: "hsl(0, 0%, 98%, 0.9)"
+        backgroundColor: "hsl(0, 0%, 98%, 0.9)",
       }}
     >
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-3 mb-4 md:mb-0">
-            <div 
+            <div
               className="w-6 h-6 rounded flex items-center justify-center"
               style={{ backgroundColor: "var(--replit-orange)" }}
             >
               <Code className="text-white" size={12} />
             </div>
             <span className="text-sm" style={{ color: "var(--replit-gray)" }}>
-              Made with ❤️ for the coding community
+              Made for passive aggressive productivity
             </span>
           </div>
           <div className="flex items-center space-x-6">
-            <a 
-              href="#" 
+            <a
+              href="https://github.com/retrospct"
+              target="_blank"
+              rel="noopener"
               className="text-sm transition-colors hover:text-orange-400"
               style={{ color: "var(--replit-gray)" }}
               data-testid="link-github"
@@ -32,8 +34,10 @@ export default function Footer() {
               <Github className="inline mr-1" size={16} />
               GitHub
             </a>
-            <a 
-              href="#" 
+            <a
+              href="https://x.com/retrospct"
+              target="_blank"
+              rel="noopener"
               className="text-sm transition-colors hover:text-orange-400"
               style={{ color: "var(--replit-gray)" }}
               data-testid="link-twitter"
@@ -41,9 +45,9 @@ export default function Footer() {
               <Twitter className="inline mr-1" size={16} />
               Twitter
             </a>
-            <a 
-              href="https://replit.com" 
-              target="_blank" 
+            <a
+              href="https://replit.com"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-sm transition-colors hover:text-orange-400"
               style={{ color: "var(--replit-gray)" }}
@@ -53,9 +57,20 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div className="text-center mt-6 pt-6 border-t" style={{ borderColor: "var(--replit-border)" }}>
+        <div
+          className="text-center mt-6 pt-6 border-t"
+          style={{ borderColor: "var(--replit-border)" }}
+        >
           <p className="text-xs" style={{ color: "var(--replit-gray)" }}>
-            Not affiliated with Replit. This is a parody site inspired by LMGTFY.
+            Not affiliated with Replit. This is a parody site inspired by&nbsp;
+            <a
+              href="https://letmegooglethat.com"
+              target="_blank"
+              rel="noopener"
+            >
+              LMGTFY
+            </a>
+            .
           </p>
         </div>
       </div>

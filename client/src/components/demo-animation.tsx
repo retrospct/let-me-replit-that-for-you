@@ -7,7 +7,10 @@ interface DemoAnimationProps {
   autoPlay?: boolean;
 }
 
-export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimationProps) {
+export default function DemoAnimation({
+  prompt,
+  autoPlay = true,
+}: DemoAnimationProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [typedText, setTypedText] = useState("");
@@ -16,20 +19,23 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
     "Opening Replit...",
     "Finding AI Chat...",
     "Typing your question...",
-    "Ready to ask AI!"
+    "Ready to ask AI!",
   ];
 
   useEffect(() => {
     if (isPlaying) {
-      const timer = setTimeout(() => {
-        if (currentStep < steps.length - 1) {
-          setCurrentStep(prev => prev + 1);
-        } else {
-          // Loop back to start
-          setCurrentStep(0);
-          setTypedText("");
-        }
-      }, currentStep === 2 ? 3000 : currentStep === 3 ? 2000 : 1500); // Longer delay for typing step and pause before restart
+      const timer = setTimeout(
+        () => {
+          if (currentStep < steps.length - 1) {
+            setCurrentStep((prev) => prev + 1);
+          } else {
+            // Loop back to start
+            setCurrentStep(0);
+            setTypedText("");
+          }
+        },
+        currentStep === 2 ? 3000 : currentStep === 3 ? 2000 : 1500,
+      ); // Longer delay for typing step and pause before restart
 
       return () => clearTimeout(timer);
     }
@@ -42,7 +48,7 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
       let index = 0;
       const typeTimer = setInterval(() => {
         if (index < prompt.length) {
-          setTypedText(prev => prev + prompt[index]);
+          setTypedText((prev) => prev + prompt[index]);
           index++;
         } else {
           clearInterval(typeTimer);
@@ -60,7 +66,10 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border" style={{ borderColor: "var(--replit-border)" }}>
+    <div
+      className="rounded-lg overflow-hidden border"
+      style={{ borderColor: "var(--replit-border)" }}
+    >
       {/* Mock Browser Window */}
       <div className="bg-gray-700 px-4 py-3 flex items-center space-x-2">
         <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -69,45 +78,56 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
         <div className="bg-gray-600 text-gray-300 px-3 py-1 rounded text-sm ml-4 font-mono">
           replit.com
         </div>
-
       </div>
 
       {/* Simulated Replit Interface */}
       <div className="p-6 bg-white text-black min-h-80 relative">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded" style={{ backgroundColor: "var(--replit-orange)" }}></div>
+            <div
+              className="w-8 h-8 rounded"
+              style={{ backgroundColor: "var(--replit-orange)" }}
+            ></div>
             <span className="font-bold text-xl">Replit</span>
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ 
+            animate={{
               opacity: currentStep >= 1 ? 1 : 0.3,
               scale: currentStep >= 1 ? 1 : 0.8,
-              backgroundColor: currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb"
+              backgroundColor:
+                currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
             }}
             transition={{ duration: 0.5 }}
             className="text-white px-4 py-2 rounded-lg font-semibold flex items-center"
             data-testid="ai-chat-button"
           >
-            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 10a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 11-4 0 2 2 0 014 0z" clipRule="evenodd" />
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 10a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 11-4 0 2 2 0 014 0z"
+                clipRule="evenodd"
+              />
             </svg>
             AI Chat
           </motion.div>
         </div>
-        
+
         {/* Chat Input Area */}
-        <motion.div 
+        <motion.div
           className="bg-gray-100 rounded-lg p-4 border-2 border-dashed border-gray-300"
           animate={{
             borderColor: currentStep >= 2 ? "var(--replit-orange)" : "#d1d5db",
-            backgroundColor: currentStep >= 2 ? "#f8fafc" : "#f3f4f6"
+            backgroundColor: currentStep >= 2 ? "#f8fafc" : "#f3f4f6",
           }}
           transition={{ duration: 0.5 }}
         >
-          <div className="text-gray-500 mb-2">AI Chat Input:</div>
+          {/* <div className="text-gray-500 mb-2">AI Chat Input:</div> */}
           <div className="font-mono text-lg min-h-8 flex items-center">
             <AnimatePresence mode="wait">
               {currentStep >= 2 && (
@@ -131,7 +151,7 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
         {/* Progress Indicator */}
         <div className="mt-6">
           <div className="flex items-center space-x-4">
-            <div 
+            <div
               className="flex-1 h-2 rounded-full overflow-hidden"
               style={{ backgroundColor: "#e5e7eb" }}
             >
@@ -139,11 +159,16 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
                 className="h-full"
                 style={{ backgroundColor: "var(--replit-orange)" }}
                 initial={{ width: "0%" }}
-                animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+                animate={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}
                 transition={{ duration: 0.5 }}
               />
             </div>
-            <span className="text-sm font-medium" style={{ color: "var(--replit-orange)" }}>
+            <span
+              className="text-sm font-medium"
+              style={{ color: "var(--replit-orange)" }}
+            >
               {currentStep < steps.length ? steps[currentStep] : "Complete!"}
             </span>
           </div>
@@ -155,21 +180,21 @@ export default function DemoAnimation({ prompt, autoPlay = true }: DemoAnimation
             <motion.div
               className="absolute w-4 h-4 pointer-events-none z-10"
               initial={{ x: 100, y: 100, opacity: 0 }}
-              animate={{ 
-                x: window.innerWidth > 768 ? 600 : 280, 
-                y: 80, 
-                opacity: 1 
+              animate={{
+                x: window.innerWidth > 768 ? 600 : 280,
+                y: 80,
+                opacity: 1,
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1, ease: "easeInOut" }}
               data-testid="animated-cursor"
             >
-              <svg 
-                className="w-4 h-4 text-black" 
-                fill="currentColor" 
+              <svg
+                className="w-4 h-4 text-black"
+                fill="currentColor"
                 viewBox="0 0 20 20"
               >
-                <path d="M6.3 2.84l10.36 8.28a1 1 0 01-.08 1.65l-3.47 2.17 1.61 3.07a1 1 0 01-1.76.92L11.5 15.5l-3.47 2.17a1 1 0 01-1.54-1.28L8.74 9.2 2.84 6.3a1 1 0 01.46-1.92h3z"/>
+                <path d="M6.3 2.84l10.36 8.28a1 1 0 01-.08 1.65l-3.47 2.17 1.61 3.07a1 1 0 01-1.76.92L11.5 15.5l-3.47 2.17a1 1 0 01-1.54-1.28L8.74 9.2 2.84 6.3a1 1 0 01.46-1.92h3z" />
               </svg>
             </motion.div>
           )}

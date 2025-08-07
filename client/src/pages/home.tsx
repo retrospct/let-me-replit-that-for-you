@@ -106,25 +106,40 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 replit-gradient">
-            For all those people who find it more effort to explain than to just
-            do it themselves.
-          </h2>
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <div
+              className="w-10 h-10 rounded flex items-center justify-center"
+              style={{ backgroundColor: "var(--replit-orange)" }}
+            >
+              <Code className="text-white" size={24} />
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold text-foreground">
+              Replit
+            </h2>
+          </div>
           <p
             className="text-xl max-w-3xl mx-auto mb-8"
             style={{ color: "var(--replit-gray)" }}
           >
-            Generate a link to show someone how to use Replit's AI to solve
-            their coding problem. It's like{" "}
+            It's like{" "}
             <a
               href="https://letmegooglethat.com/"
               target="_blank"
               rel="noopener"
+              className="underline"
             >
               Let Me Google That For You
             </a>
-            , but for when they should just ask Replit's AI Agent instead of
-            you!
+            , but for when they should just ask{" "}
+            <a
+              href="https://replit.com/"
+              target="_blank"
+              rel="noopener"
+              className="underline"
+            >
+              Replit's AI Agent
+            </a>{" "}
+            instead of you!
           </p>
         </motion.div>
 
@@ -144,8 +159,7 @@ export default function Home() {
               <div className="mb-8">
                 <label
                   htmlFor="prompt-input"
-                  className="block text-lg font-medium mb-4"
-                  style={{ color: "var(--replit-orange)" }}
+                  className="block text-lg font-medium mb-4 text-foreground"
                 >
                   What should they ask Replit's AI?
                 </label>
@@ -251,50 +265,79 @@ export default function Home() {
           </Card>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="max-w-6xl mx-auto mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Card style={{ backgroundColor: "var(--replit-card)", borderColor: "var(--replit-border)" }}>
+          <Card
+            style={{
+              backgroundColor: "var(--replit-card)",
+              borderColor: "var(--replit-border)",
+            }}
+          >
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: "var(--replit-orange)" }}>
-                <Eye className="inline mr-2" size={24} />
-                How the Demo Works
+              <h3 className="text-2xl font-bold mb-6 text-center text-foreground">
+                <Eye
+                  className="inline mr-2"
+                  size={24}
+                  style={{ color: "var(--replit-orange)" }}
+                />
+                What They Will See
               </h3>
-              
+
               <div className="grid md:grid-cols-3 gap-6 mb-8">
                 {[
-                  { icon: MousePointer, title: "Step 1: Open Replit", description: "Animated cursor navigates to replit.com", color: "var(--replit-orange)" },
-                  { icon: Bot, title: "Step 2: Find AI Chat", description: "Highlights the AI assistant button", color: "var(--replit-blue)" },
-                  { icon: Keyboard, title: "Step 3: Type Query", description: "Types the provided prompt with animation", color: "var(--replit-green)" }
+                  {
+                    icon: MousePointer,
+                    title: "Step 1: Open Replit",
+                    description: "Animated cursor navigates to replit.com",
+                    color: "var(--replit-orange)",
+                  },
+                  {
+                    icon: Bot,
+                    title: "Step 2: Find AI Chat",
+                    description: "Highlights the AI assistant button",
+                    color: "var(--replit-blue)",
+                  },
+                  {
+                    icon: Keyboard,
+                    title: "Step 3: Type Query",
+                    description: "Types the provided prompt with animation",
+                    color: "var(--replit-green)",
+                  },
                 ].map((step, index) => {
                   const Icon = step.icon;
                   return (
-                    <motion.div 
+                    <motion.div
                       key={index}
                       className="rounded-xl p-6 border group hover:border-opacity-100 transition-all duration-300"
-                      style={{ 
-                        backgroundColor: "var(--replit-card)", 
-                        borderColor: "var(--replit-border)" 
+                      style={{
+                        backgroundColor: "var(--replit-card)",
+                        borderColor: "var(--replit-border)",
                       }}
                       whileHover={{ scale: 1.02 }}
                       data-testid={`step-${index + 1}`}
                     >
                       <div className="text-center mb-4">
-                        <div 
+                        <div
                           className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors"
-                          style={{ 
+                          style={{
                             backgroundColor: `${step.color}20`,
-                            color: step.color 
+                            color: step.color,
                           }}
                         >
                           <Icon size={32} />
                         </div>
-                        <h4 className="font-semibold text-lg text-foreground">{step.title}</h4>
+                        <h4 className="font-semibold text-lg text-foreground">
+                          {step.title}
+                        </h4>
                       </div>
-                      <p className="text-center" style={{ color: "var(--replit-gray)" }}>
+                      <p
+                        className="text-center"
+                        style={{ color: "var(--replit-gray)" }}
+                      >
                         {step.description}
                       </p>
                     </motion.div>
@@ -302,12 +345,14 @@ export default function Home() {
                 })}
               </div>
 
-              <DemoAnimation prompt={prompt || "How do I create a React component with state?"} />
+              <DemoAnimation
+                prompt={
+                  prompt || "How do I create a React component with state?"
+                }
+              />
             </CardContent>
           </Card>
         </motion.div>
-
-
 
         <motion.div
           className="max-w-6xl mx-auto mb-12"
@@ -319,7 +364,7 @@ export default function Home() {
             className="text-3xl font-bold text-center mb-8"
             style={{ color: "var(--replit-orange)" }}
           >
-            Popular Examples
+            Examples
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {examples.map((example, index) => {
