@@ -245,16 +245,15 @@ export default function Home() {
                     <span data-testid="text-generated-url">{generatedUrl}</span>
                   </div>
                   <div className="flex gap-3 mt-4">
-                    <Button
+                    {/* <Button
                       size="sm"
                       style={{ backgroundColor: "var(--replit-purple)" }}
                       data-testid="button-share"
                     >
                       <Share className="mr-2" size={16} />
                       Share
-                    </Button>
+                    </Button> */}
                     <Button
-                      variant="outline"
                       size="sm"
                       onClick={handleCopy}
                       data-testid="button-copy-link"
@@ -290,64 +289,6 @@ export default function Home() {
                 />
                 What They Will See
               </h3>
-
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                {[
-                  {
-                    icon: MousePointer,
-                    title: "Step 1: Open Replit",
-                    description: "Animated cursor navigates to replit.com",
-                    color: "var(--replit-orange)",
-                  },
-                  {
-                    icon: Bot,
-                    title: "Step 2: Find AI Chat",
-                    description: "Highlights the AI assistant button",
-                    color: "var(--replit-blue)",
-                  },
-                  {
-                    icon: Keyboard,
-                    title: "Step 3: Type Query",
-                    description: "Types the provided prompt with animation",
-                    color: "var(--replit-green)",
-                  },
-                ].map((step, index) => {
-                  const Icon = step.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      className="rounded-xl p-6 border group hover:border-opacity-100 transition-all duration-300"
-                      style={{
-                        backgroundColor: "var(--replit-card)",
-                        borderColor: "var(--replit-border)",
-                      }}
-                      whileHover={{ scale: 1.02 }}
-                      data-testid={`step-${index + 1}`}
-                    >
-                      <div className="text-center mb-4">
-                        <div
-                          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors"
-                          style={{
-                            backgroundColor: `${step.color}20`,
-                            color: step.color,
-                          }}
-                        >
-                          <Icon size={32} />
-                        </div>
-                        <h4 className="font-semibold text-lg text-foreground">
-                          {step.title}
-                        </h4>
-                      </div>
-                      <p
-                        className="text-center"
-                        style={{ color: "var(--replit-gray)" }}
-                      >
-                        {step.description}
-                      </p>
-                    </motion.div>
-                  );
-                })}
-              </div>
 
               <DemoAnimation
                 prompt={

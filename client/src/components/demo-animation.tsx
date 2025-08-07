@@ -28,14 +28,13 @@ export default function DemoAnimation({
         () => {
           if (currentStep < steps.length - 1) {
             setCurrentStep((prev) => prev + 1);
-          } else {
-            // Loop back to start
-            setCurrentStep(0);
-            setTypedText("");
+          } else if (currentStep === steps.length - 1) {
+            // Stop at final step, don't loop
+            setIsPlaying(false);
           }
         },
-        currentStep === 2 ? 3000 : currentStep === 3 ? 2000 : 1500,
-      ); // Longer delay for typing step and pause before restart
+        currentStep === 2 ? 3000 : 1500,
+      ); // Longer delay for typing step
 
       return () => clearTimeout(timer);
     }
@@ -56,8 +55,9 @@ export default function DemoAnimation({
       }, 80);
 
       return () => clearInterval(typeTimer);
-    } else if (currentStep !== 2) {
-      setTypedText("");
+    } else if (currentStep >= 2 && !isPlaying) {
+      // Keep the full prompt visible when animation stops
+      setTypedText(prompt);
     }
   }, [currentStep, isPlaying, prompt]);
 
@@ -65,6 +65,12 @@ export default function DemoAnimation({
     setCurrentStep(0);
     setTypedText("");
     setIsPlaying(true);
+  };
+
+  const handleSendChat = () => {
+    const encodedPrompt = encodeURIComponent(prompt);
+    const replitUrl = `https://replit.com/ai?q=${encodedPrompt}`;
+    window.open(replitUrl, "_blank");
   };
 
   return (
@@ -109,11 +115,7 @@ export default function DemoAnimation({
               transition={{ duration: 1, ease: "easeInOut" }}
               data-testid="animated-cursor"
             >
-              <svg
-                className="w-6 h-6"
-                fill="black"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="black" viewBox="0 0 24 24">
                 <path d="M3 3l18 9-8.5 2.5L10 22z" />
               </svg>
             </motion.div>
@@ -135,11 +137,7 @@ export default function DemoAnimation({
               transition={{ duration: 0.8, ease: "easeInOut" }}
               data-testid="animated-cursor-input"
             >
-              <svg
-                className="w-6 h-6"
-                fill="black"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="black" viewBox="0 0 24 24">
                 <path d="M3 3l18 9-8.5 2.5L10 22z" />
               </svg>
             </motion.div>
@@ -194,10 +192,7 @@ export default function DemoAnimation({
                 />
               </div>
             </div>
-            <div
-              className="text-sm font-medium mt-4"
-              style={{ color: "var(--replit-orange)" }}
-            >
+            <div className="text-sm font-medium mt-4 text-foreground">
               {currentStep < steps.length ? steps[currentStep] : "Complete!"}
             </div>
           </div>
@@ -212,8 +207,9 @@ export default function DemoAnimation({
                 currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
             }}
             transition={{ duration: 0.5 }}
-            className="text-white px-6 py-4 rounded-lg font-semibold flex items-center"
+            className="text-white px-6 py-4 rounded-lg font-semibold flex items-center cursor-pointer"
             data-testid="ai-chat-button"
+            onClick={handleSendChat}
           >
             <svg
               className="w-5 h-5 mr-2"

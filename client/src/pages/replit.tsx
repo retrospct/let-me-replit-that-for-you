@@ -7,16 +7,16 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import DemoAnimation from "@/components/demo-animation";
 
-export default function Demo() {
+export default function Replit() {
   const [location] = useLocation();
   const [prompt, setPrompt] = useState("");
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const queryPrompt = urlParams.get("q");
+    const searchParams = new URLSearchParams(location.split("?")[1] || "");
+    const queryPrompt = searchParams.get("q");
     if (queryPrompt) {
-      setPrompt(queryPrompt);
+      setPrompt(decodeURIComponent(queryPrompt));
       // Start animation after a short delay
       setTimeout(() => setShowAnimation(true), 1000);
     }
