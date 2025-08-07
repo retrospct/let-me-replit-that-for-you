@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 interface DemoAnimationProps {
   prompt: string;
   autoPlay?: boolean;
+  shouldLoop?: boolean;
 }
 
 export default function DemoAnimation({
   prompt,
   autoPlay = true,
+  shouldLoop = true,
 }: DemoAnimationProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
@@ -29,16 +31,22 @@ export default function DemoAnimation({
           if (currentStep < steps.length - 1) {
             setCurrentStep((prev) => prev + 1);
           } else if (currentStep === steps.length - 1) {
-            // Stop at final step, don't loop
-            setIsPlaying(false);
+            if (shouldLoop) {
+              // Loop back to start if shouldLoop is true
+              setCurrentStep(0);
+              setTypedText("");
+            } else {
+              // Stop at final step if shouldLoop is false
+              setIsPlaying(false);
+            }
           }
         },
-        currentStep === 2 ? 3000 : 1500,
+        currentStep === 2 ? 3000 : shouldLoop ? 1500 : 1500,
       ); // Longer delay for typing step
 
       return () => clearTimeout(timer);
     }
-  }, [currentStep, isPlaying, steps.length]);
+  }, [currentStep, isPlaying, steps.length, shouldLoop]);
 
   // Typing animation for step 2
   useEffect(() => {
