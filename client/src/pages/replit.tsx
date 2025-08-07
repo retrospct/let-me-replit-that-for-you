@@ -13,12 +13,12 @@ export default function Replit() {
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const queryPrompt = urlParams.get("q");
+    const searchParams = new URLSearchParams(location.split("?")[1] || "");
+    const queryPrompt = searchParams.get("q");
     if (queryPrompt) {
-      setPrompt(queryPrompt);
+      setPrompt(decodeURIComponent(queryPrompt));
       // Start animation after a short delay
-      setTimeout(() => setShowAnimation(true), 1000);
+      setTimeout(() => setShowAnimation(true), 750);
     }
   }, [location]);
 
@@ -98,7 +98,7 @@ export default function Replit() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <DemoAnimation prompt={prompt} autoPlay />
+            <DemoAnimation prompt={prompt} autoPlay shouldLoop={false} />
           </motion.div>
         )}
 
