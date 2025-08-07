@@ -127,7 +127,6 @@ export default function DemoAnimation({
           }}
           transition={{ duration: 0.5 }}
         >
-          {/* <div className="text-gray-500 mb-2">AI Chat Input:</div> */}
           <div className="font-mono text-lg min-h-8 flex items-center">
             <AnimatePresence mode="wait">
               {currentStep >= 2 && (
@@ -179,15 +178,41 @@ export default function DemoAnimation({
           {isPlaying && currentStep === 1 && (
             <motion.div
               className="absolute w-4 h-4 pointer-events-none z-10"
-              initial={{ x: 100, y: 100, opacity: 0 }}
+              initial={{ x: 50, y: 50, opacity: 0 }}
               animate={{
-                x: window.innerWidth > 768 ? 600 : 280,
-                y: 80,
+                x: window.innerWidth > 768 ? 420 : 220,
+                y: 105,
                 opacity: 1,
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1, ease: "easeInOut" }}
               data-testid="animated-cursor"
+            >
+              <svg
+                className="w-4 h-4 text-black"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M6.3 2.84l10.36 8.28a1 1 0 01-.08 1.65l-3.47 2.17 1.61 3.07a1 1 0 01-1.76.92L11.5 15.5l-3.47 2.17a1 1 0 01-1.54-1.28L8.74 9.2 2.84 6.3a1 1 0 01.46-1.92h3z" />
+              </svg>
+            </motion.div>
+          )}
+          {isPlaying && currentStep === 2 && (
+            <motion.div
+              className="absolute w-4 h-4 pointer-events-none z-10"
+              initial={{ 
+                x: window.innerWidth > 768 ? 420 : 220, 
+                y: 105, 
+                opacity: 1 
+              }}
+              animate={{
+                x: 200,
+                y: 160,
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              data-testid="animated-cursor-input"
             >
               <svg
                 className="w-4 h-4 text-black"

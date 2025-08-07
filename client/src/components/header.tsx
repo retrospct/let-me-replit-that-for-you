@@ -23,20 +23,6 @@ export default function Header() {
           </h1>
         </div>
         <div className="hidden md:flex items-center space-x-6">
-          {/* <a 
-            href="#" 
-            className="transition-colors hover:text-white"
-            style={{ color: "var(--replit-gray)" }}
-          >
-            About
-          </a>
-          <a 
-            href="#" 
-            className="transition-colors hover:text-white"
-            style={{ color: "var(--replit-gray)" }}
-          >
-            Examples
-          </a> */}
           <Button
             asChild
             style={{ backgroundColor: "var(--replit-orange)" }}

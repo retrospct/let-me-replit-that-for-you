@@ -13,6 +13,7 @@ import {
   MousePointer,
   Keyboard,
 } from "lucide-react";
+import { SiReplit } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -37,7 +38,7 @@ export default function Home() {
       setGeneratedUrl(data.url);
       toast({
         title: "Link Generated!",
-        description: "Your demonstration link is ready to share.",
+        description: "Your link is ready to share.",
       });
     },
     onError: () => {
@@ -111,7 +112,7 @@ export default function Home() {
               className="w-10 h-10 rounded flex items-center justify-center"
               style={{ backgroundColor: "var(--replit-orange)" }}
             >
-              <Code className="text-white" size={24} />
+              <SiReplit className="text-white" size={24} />
             </div>
             <h2 className="text-4xl md:text-6xl font-bold text-foreground">
               Replit

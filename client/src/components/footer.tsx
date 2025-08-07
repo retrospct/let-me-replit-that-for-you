@@ -1,4 +1,5 @@
-import { Code, Github, Twitter } from "lucide-react";
+import { Code } from "lucide-react";
+import { SiX, SiGithub, SiReplit } from "@icons-pack/react-simple-icons";
 
 export default function Footer() {
   return (
@@ -29,10 +30,10 @@ export default function Footer() {
               rel="noopener"
               className="text-sm transition-colors hover:text-orange-400"
               style={{ color: "var(--replit-gray)" }}
+              aria-label="GitHub"
               data-testid="link-github"
             >
-              <Github className="inline mr-1" size={16} />
-              GitHub
+              <SiGithub className="inline mr-1" size={16} />
             </a>
             <a
               href="https://x.com/retrospct"
@@ -40,10 +41,10 @@ export default function Footer() {
               rel="noopener"
               className="text-sm transition-colors hover:text-orange-400"
               style={{ color: "var(--replit-gray)" }}
+              aria-label="X (formerly Twitter)"
               data-testid="link-twitter"
             >
-              <Twitter className="inline mr-1" size={16} />
-              Twitter
+              <SiX className="inline mr-1" size={16} />
             </a>
             <a
               href="https://replit.com"
@@ -53,7 +54,8 @@ export default function Footer() {
               style={{ color: "var(--replit-gray)" }}
               data-testid="link-replit"
             >
-              Visit Replit
+              <SiReplit className="inline mr-1" size={16} />
+              Replit
             </a>
           </div>
         </div>
