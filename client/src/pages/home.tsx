@@ -38,7 +38,7 @@ export default function Home() {
       setGeneratedUrl(data.url);
       toast({
         title: "Link Generated!",
-        description: "Your link is ready to share.",
+        description: "Your ephemeral link is ready to share.",
       });
     },
     onError: () => {
