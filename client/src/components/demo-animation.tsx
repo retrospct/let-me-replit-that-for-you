@@ -16,6 +16,7 @@ export default function DemoAnimation({
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [typedText, setTypedText] = useState("");
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   const steps = [
     "Opening Replit...",
@@ -26,6 +27,17 @@ export default function DemoAnimation({
 
   useEffect(() => {
     if (isPlaying) {
+      let delay = 1500; // Default delay
+      
+      if (currentStep === 2) {
+        // For typing step, wait for typing to complete plus extra time
+        const typingTime = prompt.length * 80; // 80ms per character
+        delay = typingTime + 2000; // Extra 2 seconds after typing completes
+      } else if (currentStep === 3) {
+        // Stay on final step longer before looping
+        delay = shouldLoop ? 3000 : 0; // 3 seconds if looping, immediate if not
+      }
+
       const timer = setTimeout(
         () => {
           if (currentStep < steps.length - 1) {
@@ -35,43 +47,52 @@ export default function DemoAnimation({
               // Loop back to start if shouldLoop is true
               setCurrentStep(0);
               setTypedText("");
+              setIsTypingComplete(false);
             } else {
               // Stop at final step if shouldLoop is false
               setIsPlaying(false);
             }
           }
         },
-        currentStep === 2 ? 3000 : shouldLoop ? 1500 : 1500,
-      ); // Longer delay for typing step
+        delay
+      );
 
       return () => clearTimeout(timer);
     }
-  }, [currentStep, isPlaying, steps.length, shouldLoop]);
+  }, [currentStep, isPlaying, steps.length, shouldLoop, prompt.length]);
 
   // Typing animation for step 2
   useEffect(() => {
     if (currentStep === 2 && isPlaying && prompt) {
       setTypedText("");
+      setIsTypingComplete(false);
       let index = 0;
       const typeTimer = setInterval(() => {
         if (index < prompt.length) {
           setTypedText(prompt.slice(0, index + 1));
           index++;
         } else {
+          setIsTypingComplete(true);
           clearInterval(typeTimer);
         }
       }, 80);
 
       return () => clearInterval(typeTimer);
-    } else if (currentStep >= 2 && !isPlaying) {
-      // Keep the full prompt visible when animation stops
+    } else if (currentStep >= 2) {
+      // Keep the full prompt visible for steps 2+ or when stopped
       setTypedText(prompt);
+      setIsTypingComplete(true);
+    } else if (currentStep < 2) {
+      // Clear text for earlier steps
+      setTypedText("");
+      setIsTypingComplete(false);
     }
   }, [currentStep, isPlaying, prompt]);
 
   const resetAnimation = () => {
     setCurrentStep(0);
     setTypedText("");
+    setIsTypingComplete(false);
     setIsPlaying(true);
   };
 
