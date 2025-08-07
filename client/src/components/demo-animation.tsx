@@ -88,35 +88,61 @@ export default function DemoAnimation({
               className="w-8 h-8 rounded"
               style={{ backgroundColor: "var(--replit-orange)" }}
             ></div>
-            <span className="font-bold text-xl">Replit</span>
+            <span className="font-bold text-xl">Replit AI Agent</span>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: currentStep >= 1 ? 1 : 0.3,
-              scale: currentStep >= 1 ? 1 : 0.8,
-              backgroundColor:
-                currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
-            }}
-            transition={{ duration: 0.5 }}
-            className="text-white px-4 py-2 rounded-lg font-semibold flex items-center"
-            data-testid="ai-chat-button"
-          >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 10a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 11-4 0 2 2 0 014 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            AI Chat
-          </motion.div>
         </div>
+
+        {/* Animated Cursor */}
+        <AnimatePresence>
+          {isPlaying && currentStep === 1 && (
+            <motion.div
+              className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10"
+              initial={{ x: 50, y: 50, opacity: 0 }}
+              animate={{
+                x: window.innerWidth > 768 ? 420 : 220,
+                y: 105,
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+              data-testid="animated-cursor"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="black"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 3l18 9-8.5 2.5L10 22z" />
+              </svg>
+            </motion.div>
+          )}
+          {isPlaying && currentStep === 2 && (
+            <motion.div
+              className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10"
+              initial={{
+                x: window.innerWidth > 768 ? 420 : 220,
+                y: 105,
+                opacity: 1,
+              }}
+              animate={{
+                x: 40,
+                y: 145,
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              data-testid="animated-cursor-input"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="black"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 3l18 9-8.5 2.5L10 22z" />
+              </svg>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Chat Input Area */}
         <motion.div
@@ -147,83 +173,60 @@ export default function DemoAnimation({
           </div>
         </motion.div>
 
-        {/* Progress Indicator */}
-        <div className="mt-6">
-          <div className="flex items-center space-x-4">
-            <div
-              className="flex-1 h-2 rounded-full overflow-hidden"
-              style={{ backgroundColor: "#e5e7eb" }}
-            >
-              <motion.div
-                className="h-full"
-                style={{ backgroundColor: "var(--replit-orange)" }}
-                initial={{ width: "0%" }}
-                animate={{
-                  width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}
-                transition={{ duration: 0.5 }}
-              />
+        <div className="flex items-center justify-between my-6">
+          {/* Progress Indicator */}
+          <div className="mt-6 w-3/4">
+            <div className="flex items-center space-x-4">
+              <div
+                className="flex-1 h-2 rounded-full overflow-hidden"
+                style={{ backgroundColor: "#e5e7eb" }}
+              >
+                <motion.div
+                  className="h-full"
+                  style={{ backgroundColor: "var(--replit-orange)" }}
+                  initial={{ width: "0%" }}
+                  animate={{
+                    width: `${((currentStep + 1) / steps.length) * 100}%`,
+                  }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
             </div>
-            <span
-              className="text-sm font-medium"
+            <div
+              className="text-sm font-medium mt-4"
               style={{ color: "var(--replit-orange)" }}
             >
               {currentStep < steps.length ? steps[currentStep] : "Complete!"}
-            </span>
+            </div>
           </div>
-        </div>
 
-        {/* Animated Cursor */}
-        <AnimatePresence>
-          {isPlaying && currentStep === 1 && (
-            <motion.div
-              className="absolute w-4 h-4 pointer-events-none z-10"
-              initial={{ x: 50, y: 50, opacity: 0 }}
-              animate={{
-                x: window.innerWidth > 768 ? 420 : 220,
-                y: 105,
-                opacity: 1,
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-              data-testid="animated-cursor"
+          {/* Send Chat Button */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: currentStep >= 1 ? 1 : 0.3,
+              scale: currentStep >= 1 ? 1 : 0.8,
+              backgroundColor:
+                currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
+            }}
+            transition={{ duration: 0.5 }}
+            className="text-white px-6 py-4 rounded-lg font-semibold flex items-center"
+            data-testid="ai-chat-button"
+          >
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
             >
-              <svg
-                className="w-4 h-4 text-black"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M6.3 2.84l10.36 8.28a1 1 0 01-.08 1.65l-3.47 2.17 1.61 3.07a1 1 0 01-1.76.92L11.5 15.5l-3.47 2.17a1 1 0 01-1.54-1.28L8.74 9.2 2.84 6.3a1 1 0 01.46-1.92h3z" />
-              </svg>
-            </motion.div>
-          )}
-          {isPlaying && currentStep === 2 && (
-            <motion.div
-              className="absolute w-4 h-4 pointer-events-none z-10"
-              initial={{ 
-                x: window.innerWidth > 768 ? 420 : 220, 
-                y: 105, 
-                opacity: 1 
-              }}
-              animate={{
-                x: 40,
-                y: 145,
-                opacity: 1,
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              data-testid="animated-cursor-input"
-            >
-              <svg
-                className="w-4 h-4 text-black"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M6.3 2.84l10.36 8.28a1 1 0 01-.08 1.65l-3.47 2.17 1.61 3.07a1 1 0 01-1.76.92L11.5 15.5l-3.47 2.17a1 1 0 01-1.54-1.28L8.74 9.2 2.84 6.3a1 1 0 01.46-1.92h3z" />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <path
+                fillRule="evenodd"
+                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 10a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 11-4 0 2 2 0 014 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Send Chat
+          </motion.div>
+        </div>
       </div>
     </div>
   );
