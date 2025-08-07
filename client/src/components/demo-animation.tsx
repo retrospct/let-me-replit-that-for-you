@@ -43,19 +43,21 @@ export default function DemoAnimation({
 
   // Typing animation for step 2
   useEffect(() => {
-    if (currentStep === 2 && isPlaying) {
+    if (currentStep === 2 && isPlaying && prompt) {
       setTypedText("");
       let index = 0;
       const typeTimer = setInterval(() => {
         if (index < prompt.length) {
-          setTypedText((prev) => prev + prompt[index]);
+          setTypedText(prompt.slice(0, index + 1));
           index++;
         } else {
           clearInterval(typeTimer);
         }
-      }, 100);
+      }, 80);
 
       return () => clearInterval(typeTimer);
+    } else if (currentStep !== 2) {
+      setTypedText("");
     }
   }, [currentStep, isPlaying, prompt]);
 

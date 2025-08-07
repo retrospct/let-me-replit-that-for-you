@@ -13,10 +13,10 @@ export default function Demo() {
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.split("?")[1] || "");
-    const queryPrompt = searchParams.get("q");
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryPrompt = urlParams.get("q");
     if (queryPrompt) {
-      setPrompt(decodeURIComponent(queryPrompt));
+      setPrompt(queryPrompt);
       // Start animation after a short delay
       setTimeout(() => setShowAnimation(true), 1000);
     }
