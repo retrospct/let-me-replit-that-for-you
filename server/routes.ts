@@ -14,7 +14,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const encodedPrompt = encodeURIComponent(prompt);
       const baseUrl = req.get('host') || 'localhost:5000';
       const protocol = req.get('x-forwarded-proto') || 'http';
-      const url = `${protocol}://${baseUrl}/demo?q=${encodedPrompt}`;
+      const url = `${protocol}://${baseUrl}/replit?q=${encodedPrompt}`;
       
       const demo = await storage.createDemo({ prompt, url });
       res.json(demo);
