@@ -2,16 +2,13 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
-  Dumbbell,
+  Link,
   Eye,
   WandSparkles,
   Copy,
-  Share,
   Bot,
   Timer,
   Loader,
-  MousePointer,
-  Keyboard,
 } from "lucide-react";
 import { SiReplit } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
@@ -74,10 +71,10 @@ export default function Home() {
 
   const examples = [
     {
-      title: "Gym Buddy Finder",
+      title: "Link in Bio Website",
       prompt:
-        "Make a web app that helps gym-goers find new friends to train with. Create profiles with fitness goals and preferences, match users based on location and workout types, and include a messaging system. Design it with vibrant colors and an engaging social interface.",
-      icon: Dumbbell,
+        "Make a link in bio app that presents all my social accounts in an easy, intuitive, and aesthetic interface. Use a random image for a profile picture placeholder for now. Add hover effects on buttons, a modern card layout, and customizable color themes.",
+      icon: Link,
       color: "text-blue-400",
     },
     {
@@ -250,14 +247,6 @@ export default function Home() {
                     <span data-testid="text-generated-url">{generatedUrl}</span>
                   </div>
                   <div className="flex gap-3 mt-4">
-                    {/* <Button
-                      size="sm"
-                      style={{ backgroundColor: "var(--replit-purple)" }}
-                      data-testid="button-share"
-                    >
-                      <Share className="mr-2" size={16} />
-                      Share
-                    </Button> */}
                     <Button
                       size="sm"
                       onClick={handleCopy}
