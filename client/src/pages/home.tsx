@@ -1,15 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Link,
-  Eye,
-  WandSparkles,
-  Copy,
-  Bot,
-  Timer,
-  Loader,
-} from "lucide-react";
+import { Link, WandSparkles, Copy, Bot, Timer, Loader } from "lucide-react";
 import { SiReplit } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
