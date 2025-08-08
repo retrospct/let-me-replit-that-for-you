@@ -46,7 +46,7 @@ class AnalyticsStorage {
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
     
-    // Calculate daily stats for last 7 days
+    // Calculate daily stats for last 30 days
     const dailyStats = this.calculateDailyStats();
     
     return {
@@ -59,7 +59,7 @@ class AnalyticsStorage {
   }
 
   private calculateDailyStats() {
-    const days = 7;
+    const days = 30;
     const dailyStats = [];
     
     for (let i = days - 1; i >= 0; i--) {

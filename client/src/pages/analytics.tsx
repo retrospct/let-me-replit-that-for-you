@@ -143,7 +143,7 @@ export default function Analytics() {
               <div className="flex items-center gap-2 mb-6">
                 <BarChart className="h-5 w-5" style={{ color: "var(--replit-orange)" }} />
                 <h2 className="text-xl font-semibold text-foreground">
-                  Daily Activity (Last 7 Days)
+                  Daily Activity (Last 30 Days)
                 </h2>
               </div>
               
