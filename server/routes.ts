@@ -21,7 +21,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate URL directly without storing anything
       const encodedPrompt = encodeURIComponent(prompt);
       const baseUrl = req.get('host') || 'localhost:5000';
-      const protocol = req.get('x-forwarded-proto') || 'http';
+      const protocol = req.get('x-forwarded-proto') || 'https';
       const url = `${protocol}://${baseUrl}/replit?q=${encodedPrompt}`;
       
       // Return the URL directly without storing
