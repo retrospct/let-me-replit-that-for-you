@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
 
 interface DemoAnimationProps {
   prompt: string;
@@ -29,9 +28,9 @@ export default function DemoAnimation({
       let delay = 1500; // Default delay
 
       if (currentStep === 2) {
-        // For typing step, wait for typing to complete plus extra time
-        const typingTime = prompt.length * 25; // 80ms per character
-        delay = typingTime + 2000; // Extra 2 seconds after typing completes
+        // For typing step, wait for fixed typing duration plus extra time
+        const typingTime = 2000; // Fixed 2 seconds typing duration
+        delay = typingTime + 1500; // Extra 1.5 seconds after typing completes
       } else if (currentStep === 3) {
         // Stay on final step longer before looping
         delay = shouldLoop ? 3000 : 0; // 3 seconds if looping, immediate if not
@@ -61,6 +60,9 @@ export default function DemoAnimation({
     if (currentStep === 2 && isPlaying && prompt) {
       setTypedText("");
       let index = 0;
+      // Fixed typing duration of 2 seconds regardless of prompt length
+      const typingDuration = 2000;
+      const interval = prompt.length > 0 ? typingDuration / prompt.length : 50;
       const typeTimer = setInterval(() => {
         if (index < prompt.length) {
           setTypedText(prompt.slice(0, index + 1));
@@ -68,7 +70,7 @@ export default function DemoAnimation({
         } else {
           clearInterval(typeTimer);
         }
-      }, 25);
+      }, interval);
 
       return () => clearInterval(typeTimer);
     } else if (currentStep >= 2) {

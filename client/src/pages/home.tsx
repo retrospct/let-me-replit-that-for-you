@@ -28,7 +28,7 @@ export default function Home() {
 
   const generateDemo = useMutation({
     mutationFn: async (prompt: string) => {
-      const response = await apiRequest("POST", "/api/demos", { prompt });
+      const response = await apiRequest("POST", "/api/generate", { prompt });
       return response.json();
     },
     onSuccess: (data) => {
