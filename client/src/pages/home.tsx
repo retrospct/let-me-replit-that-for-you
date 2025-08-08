@@ -140,7 +140,7 @@ export default function Home() {
             >
               Replit's AI Agent
             </a>{" "}
-            instead of you!
+            to create the app instead of asking you!
           </p>
         </motion.div>
 
