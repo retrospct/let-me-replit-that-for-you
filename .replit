@@ -46,6 +46,3 @@ author = 19890653
 [[workflows.workflow.tasks]]
 task = "packager.installForLanguage"
 args = "nodejs"
-
-[agent]
-integrations = ["javascript_google_analytics==1.0.0"]

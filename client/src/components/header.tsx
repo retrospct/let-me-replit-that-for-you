@@ -1,10 +1,7 @@
-import { Code, ExternalLink, BarChart } from "lucide-react";
+import { Code, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "wouter";
 
 export default function Header() {
-  const [location] = useLocation();
-  
   return (
     <header
       className="border-b backdrop-blur-sm sticky top-0 z-50"
@@ -26,33 +23,6 @@ export default function Header() {
           </h1>
         </div>
         <div className="hidden md:flex items-center space-x-6">
-          <nav className="flex items-center space-x-4">
-            <Link
-              href="/"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                location === '/' 
-                  ? 'text-white'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-              style={location === '/' ? { backgroundColor: "var(--replit-orange)" } : {}}
-              data-testid="nav-home"
-            >
-              Home
-            </Link>
-            <Link
-              href="/analytics"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1 ${
-                location === '/analytics'
-                  ? 'text-white'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-              style={location === '/analytics' ? { backgroundColor: "var(--replit-blue)" } : {}}
-              data-testid="nav-analytics"
-            >
-              <BarChart size={14} />
-              Analytics
-            </Link>
-          </nav>
           <Button
             asChild
             style={{ backgroundColor: "var(--replit-orange)" }}
