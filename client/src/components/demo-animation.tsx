@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { SiReplit } from "@icons-pack/react-simple-icons";
 
 interface DemoAnimationProps {
   prompt: string;
@@ -17,10 +18,10 @@ export default function DemoAnimation({
   const [typedText, setTypedText] = useState("");
 
   const steps = [
-    "Opening Replit...",
-    "Finding AI Chat...",
-    "Typing your question...",
-    "Ready to ask AI!",
+    "Open Replit...",
+    "Find the AI Agent chat...",
+    "Type your prompt...",
+    'Press "Send"',
   ];
 
   useEffect(() => {
@@ -88,7 +89,11 @@ export default function DemoAnimation({
     setIsPlaying(true);
   };
 
-  const handleSendChat = () => {
+  const handleCopyPrompt = async () => {
+    await navigator.clipboard.writeText(prompt);
+  };
+
+  const handleOpenReplit = () => {
     const encodedPrompt = encodeURIComponent(prompt);
     const replitUrl = `https://replit.com/ai?q=${encodedPrompt}`;
     window.open(replitUrl, "_blank");
@@ -114,9 +119,11 @@ export default function DemoAnimation({
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
             <div
-              className="w-8 h-8 rounded"
+              className="w-8 h-8 rounded flex items-center justify-center"
               style={{ backgroundColor: "var(--replit-orange)" }}
-            ></div>
+            >
+              <SiReplit className="text-white" size={18} />
+            </div>
             <span className="font-bold text-xl">Replit AI Agent</span>
           </div>
         </div>
@@ -174,32 +181,62 @@ export default function DemoAnimation({
             </div>
           </div>
 
-          {/* Send Chat Button */}
+          {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{
               opacity: currentStep >= 1 ? 1 : 0.3,
               scale: currentStep >= 1 ? 1 : 0.8,
-              backgroundColor:
-                currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
             }}
             transition={{ duration: 0.5 }}
-            className="text-white px-6 py-4 rounded-lg font-semibold flex items-center cursor-pointer"
-            data-testid="ai-chat-button"
-            onClick={handleSendChat}
+            className="flex flex-col gap-3"
           >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
+            <motion.button
+              className="text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center cursor-pointer"
+              style={{
+                backgroundColor: currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
+              }}
+              data-testid="copy-prompt-button"
+              onClick={handleCopyPrompt}
+              disabled={currentStep < 1}
             >
-              <path
-                fillRule="evenodd"
-                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 10a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 11-4 0 2 2 0 014 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Send Chat
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z" />
+                <path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" />
+              </svg>
+              Copy Prompt
+            </motion.button>
+            <motion.button
+              className="text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center cursor-pointer"
+              style={{
+                backgroundColor: currentStep >= 1 ? "var(--replit-orange)" : "#e5e7eb",
+              }}
+              data-testid="open-replit-button"
+              onClick={handleOpenReplit}
+              disabled={currentStep < 1}
+            >
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
+                  clipRule="evenodd"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Open Replit
+            </motion.button>
           </motion.div>
         </div>
 

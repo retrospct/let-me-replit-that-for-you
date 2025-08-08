@@ -1,4 +1,5 @@
 import type { Express } from "express";
+import { createServer, type Server } from "http";
 import { z } from "zod";
 
 // Simple schema for prompt validation
@@ -6,7 +7,7 @@ const promptSchema = z.object({
   prompt: z.string().min(1, "Prompt cannot be empty"),
 });
 
-export async function registerRoutes(app: Express): Promise<void> {
+export async function registerRoutes(app: Express): Promise<Server> {
   // Generate demo link (ephemeral - no storage)
   app.post("/api/generate", async (req, res) => {
     try {
@@ -30,4 +31,7 @@ export async function registerRoutes(app: Express): Promise<void> {
       }
     }
   });
+
+  const httpServer = createServer(app);
+  return httpServer;
 }

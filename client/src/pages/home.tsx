@@ -162,7 +162,7 @@ export default function Home() {
                   htmlFor="prompt-input"
                   className="block text-lg font-medium mb-4 text-foreground"
                 >
-                  What should they ask Replit's AI?
+                  What should they ask Replit's AI Agent?
                 </label>
                 <div className="relative">
                   <Input
@@ -276,11 +276,6 @@ export default function Home() {
           >
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-6 text-center text-foreground">
-                <Eye
-                  className="inline mr-2"
-                  size={24}
-                  style={{ color: "var(--replit-orange)" }}
-                />
                 What They Will See
               </h3>
 
