@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SiReplit } from "@icons-pack/react-simple-icons";
-import { compressText } from "../../../shared/compression";
 import { useToast } from "@/hooks/use-toast";
+import { Copy } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface DemoAnimationProps {
   prompt: string;
@@ -124,7 +125,7 @@ export default function DemoAnimation({
       </div>
 
       {/* Simulated Replit Interface */}
-      <div className="p-6 bg-white text-black min-h-80 relative">
+      <div className="p-6 bg-white text-black min-h-60 relative">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
             <div
@@ -135,6 +136,14 @@ export default function DemoAnimation({
             </div>
             <span className="font-bold text-xl">Replit AI Agent</span>
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleCopyPrompt}
+            data-testid="button-copy-prompt-small"
+          >
+            <Copy size={16} />
+          </Button>
         </div>
 
         {/* Chat Input Area */}
