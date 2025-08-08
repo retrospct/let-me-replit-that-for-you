@@ -148,7 +148,7 @@ export default function DemoAnimation({
 
         {/* Chat Input Area */}
         <motion.div
-          className="bg-gray-100 rounded-lg p-4 border-2 border-dashed border-gray-300"
+          className="bg-gray-100 rounded-lg p-4 border-1 border-dashed border-gray-300"
           animate={{
             borderColor: currentStep >= 2 ? "var(--replit-orange)" : "#d1d5db",
             backgroundColor: currentStep >= 2 ? "#f8fafc" : "#f3f4f6",
