@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import DemoAnimation from "@/components/demo-animation";
+import { decompressText } from "../../../shared/compression";
 
 export default function Replit() {
   const [location] = useLocation();
@@ -16,9 +17,18 @@ export default function Replit() {
     const urlParams = new URLSearchParams(window.location.search);
     const queryPrompt = urlParams.get("q");
     if (queryPrompt) {
-      setPrompt(queryPrompt);
-      // Start animation after a short delay
-      setTimeout(() => setShowAnimation(true), 750);
+      try {
+        // Try to decompress the prompt
+        const decompressedPrompt = decompressText(queryPrompt);
+        setPrompt(decompressedPrompt);
+        // Start animation after a short delay
+        setTimeout(() => setShowAnimation(true), 750);
+      } catch (error) {
+        console.error("Failed to decompress prompt:", error);
+        // Fallback to treating it as regular encoded text
+        setPrompt(decodeURIComponent(queryPrompt));
+        setTimeout(() => setShowAnimation(true), 750);
+      }
     }
   }, [location]);
 

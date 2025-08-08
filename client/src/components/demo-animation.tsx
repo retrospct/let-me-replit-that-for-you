@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SiReplit } from "@icons-pack/react-simple-icons";
+import { compressText } from "../../../shared/compression";
 import { useToast } from "@/hooks/use-toast";
 
 interface DemoAnimationProps {
