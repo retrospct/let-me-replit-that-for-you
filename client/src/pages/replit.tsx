@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { Code, ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { apiRequest } from "@/lib/queryClient";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import DemoAnimation from "@/components/demo-animation";
@@ -17,10 +18,23 @@ export default function Replit() {
     const queryPrompt = urlParams.get("q");
     if (queryPrompt) {
       setPrompt(queryPrompt);
+      
+      // Track the visit
+      trackVisit(queryPrompt);
+      
       // Start animation after a short delay
       setTimeout(() => setShowAnimation(true), 750);
     }
   }, [location]);
+
+  const trackVisit = async (prompt: string) => {
+    try {
+      await apiRequest('POST', '/api/analytics/visit', { prompt });
+    } catch (error) {
+      // Silently fail - analytics shouldn't break the user experience
+      console.debug('Analytics tracking failed:', error);
+    }
+  };
 
   const handleRedirectToReplit = () => {
     const encodedPrompt = encodeURIComponent(prompt);
