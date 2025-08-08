@@ -177,24 +177,11 @@ export default function DemoAnimation({
 
         <div className="flex items-center justify-between my-6">
           {/* Progress Indicator */}
-          <div className="mt-6 w-3/4">
-            <div className="flex items-center space-x-4">
-              <div
-                className="flex-1 h-2 rounded-full overflow-hidden"
-                style={{ backgroundColor: "#e5e7eb" }}
-              >
-                <motion.div
-                  className="h-full"
-                  style={{ backgroundColor: "var(--replit-orange)" }}
-                  initial={{ width: "0%" }}
-                  animate={{
-                    width: `${((currentStep + 1) / steps.length) * 100}%`,
-                  }}
-                  transition={{ duration: 0.5 }}
-                />
-              </div>
-            </div>
-            <div className="text-sm font-medium mt-4 text-foreground">
+          <div className="ml-4 w-3/4">
+            <div
+              className="text-lg font-medium"
+              style={{ color: "var(--replit-gray)" }}
+            >
               {currentStep < steps.length ? steps[currentStep] : "Complete!"}
             </div>
           </div>
