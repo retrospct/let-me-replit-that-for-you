@@ -148,7 +148,7 @@ export default function DemoAnimation({
 
         {/* Chat Input Area */}
         <motion.div
-          className="bg-gray-100 rounded-lg p-4 border-1 border-dashed border-gray-300"
+          className="bg-gray-100 rounded-lg p-2 border-1 border-dashed border-gray-300 sm:p-4"
           animate={{
             borderColor: currentStep >= 2 ? "var(--replit-orange)" : "#d1d5db",
             backgroundColor: currentStep >= 2 ? "#f8fafc" : "#f3f4f6",
@@ -175,11 +175,11 @@ export default function DemoAnimation({
           </div>
         </motion.div>
 
-        <div className="flex items-center justify-between my-6">
+        <div className="flex flex-col items-center justify-between my-6 sm:flex-row">
           {/* Progress Indicator */}
-          <div className="ml-4 w-3/4">
+          <div className="ml-0 sm:ml-4 w-3/4">
             <div
-              className="text-lg font-medium"
+              className="text-sm font-medium text-center mb-3 sm:text-lg sm:text-left sm:mb-0"
               style={{ color: "var(--replit-gray)" }}
             >
               {currentStep < steps.length ? steps[currentStep] : "Complete!"}

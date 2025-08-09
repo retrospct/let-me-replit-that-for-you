@@ -266,7 +266,7 @@ export default function Home() {
               borderColor: "var(--replit-border)",
             }}
           >
-            <CardContent className="p-8">
+            <CardContent className="p-4 sm:p-8">
               <h3 className="text-2xl font-bold mb-6 text-center text-foreground">
                 What They Will See
               </h3>
